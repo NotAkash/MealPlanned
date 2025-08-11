@@ -18,7 +18,10 @@ export default function Home() {
   const [distance, setDistance] = useState(5);
   const [view, setView] = useState<'list' | 'map'>('list');
   const [openNow, setOpenNow] = useState(false);
-  const [location, setLocation] = useState<any>(null);
+  const [location, setLocation] = useState<any>({
+    label: '99 University Ave, Kingston, ON K7L 3N6, Canada',
+    value: '99 University Ave, Kingston, ON K7L 3N6, Canada',
+  });
 
 
   const filteredRestaurants = useMemo(() => {
