@@ -1,16 +1,17 @@
 "use client";
 
-import { Search } from 'lucide-react';
+import { Clock, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import { Slider } from "@/components/ui/slider"
+import { Switch } from "@/components/ui/switch"
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 
 interface SearchSectionProps {
-    searchTerm: string;
-    onSearchTermChange: (value: string) => void;
+    location: any;
+    onLocationChange: (value: any) => void;
     searchType: string;
     onSearchTypeChange: (value: string) => void;
     price: string;
@@ -19,12 +20,14 @@ interface SearchSectionProps {
     onRatingChange: (value: string) => void;
     distance: number;
     onDistanceChange: (value: number) => void;
+    openNow: boolean;
+    onOpenNowChange: (value: boolean) => void;
 }
 
 
 export function SearchSection({
-    searchTerm,
-    onSearchTermChange,
+    location,
+    onLocationChange,
     searchType,
     onSearchTypeChange,
     price,
@@ -33,6 +36,8 @@ export function SearchSection({
     onRatingChange,
     distance,
     onDistanceChange,
+    openNow,
+    onOpenNowChange
 }: SearchSectionProps) {
     return (
         <section className="py-12 border-b">
@@ -44,16 +49,40 @@ export function SearchSection({
                 <div className="max-w-4xl mx-auto bg-card p-6 rounded-xl shadow-md">
                     <div className="flex flex-col sm:flex-row gap-4 mb-6">
                         <div className="relative flex-grow">
-                            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                            <Input 
-                                placeholder="Search by city/town..." 
-                                className="pl-11 h-12 text-base" 
-                                value={searchTerm}
-                                onChange={(e) => onSearchTermChange(e.target.value)}
+                             <div className="absolute left-3.5 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground z-10"><Search/></div>
+                             <GooglePlacesAutocomplete
+                                apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
+                                selectProps={{
+                                    value: location,
+                                    onChange: onLocationChange,
+                                    placeholder: 'Search by city/town...',
+                                    styles: {
+                                        input: (provided) => ({
+                                            ...provided,
+                                            paddingLeft: '2.5rem',
+                                            height: '3rem',
+                                        }),
+                                        control: (provided) => ({
+                                            ...provided,
+                                           borderRadius: '0.5rem',
+                                           border: '1px solid hsl(var(--border))',
+                                        }),
+                                        option: (provided, state) => ({
+                                            ...provided,
+                                            backgroundColor: state.isFocused ? 'hsl(var(--accent))' : 'transparent',
+                                            color: 'hsl(var(--foreground))'
+                                        })
+                                    }
+                                }}
+                                autocompletionRequest={{
+                                    componentRestrictions: {
+                                        country: ['ca'],
+                                    }
+                                }}
                             />
                         </div>
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 items-center">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-center">
                         <RadioGroup value={searchType} onValueChange={onSearchTypeChange} className="flex items-center col-span-1 sm:col-span-1">
                             <div className="flex items-center space-x-2">
                                 <RadioGroupItem value="restaurants" id="r-restaurants" />
@@ -88,6 +117,10 @@ export function SearchSection({
                                 <SelectItem value="1">1+ Star</SelectItem>
                             </SelectContent>
                         </Select>
+                        <div className="flex items-center space-x-2">
+                            <Switch id="open-now" checked={openNow} onCheckedChange={onOpenNowChange} />
+                            <Label htmlFor="open-now" className='flex items-center gap-2'><Clock className="h-4 w-4"/>Open Now</Label>
+                        </div>
                     </div>
                     <div className="mt-6">
                         <Label>Distance: &lt; {distance} km</Label>

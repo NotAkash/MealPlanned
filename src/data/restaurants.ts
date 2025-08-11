@@ -18,6 +18,8 @@ export const mockRestaurants: Restaurant[] = [
       "The service was impeccable. I had the lasagna and it was the best I've ever tasted. Highly recommend the tiramisu for dessert.",
       "Good food, but it was very loud. Not ideal for a quiet dinner. The pizza was average."
     ],
+    openingHours: { 'weekday': '11:00-22:00', 'weekend': '12:00-23:00' },
+    isOpen: true
   },
   {
     id: '2',
@@ -36,6 +38,8 @@ export const mockRestaurants: Restaurant[] = [
       "A must-visit for Mexican food lovers. The guacamole is fresh and the carnitas are to die for. It can get crowded, so be prepared to wait.",
       "The tacos were a bit greasy for my taste, but the flavors were good. The service was a little slow during peak hours."
     ],
+    openingHours: { 'weekday': '12:00-21:00', 'weekend': '12:00-22:00' },
+    isOpen: true
   },
   {
     id: '3',
@@ -54,6 +58,8 @@ export const mockRestaurants: Restaurant[] = [
       "Elegant and serene. Each piece of sushi is a work of art. It's expensive, but the quality is unmatched.",
       "While the sushi is top-notch, the portions are small for the price. I left feeling a bit hungry."
     ],
+    openingHours: { 'weekday': '17:00-22:00', 'weekend': '17:00-23:00' },
+    isOpen: false
   },
   {
     id: '4',
@@ -72,6 +78,8 @@ export const mockRestaurants: Restaurant[] = [
       "Solid American-style Chinese food. The portions are huge and the lunch specials are a bargain.",
       "The food was okay, nothing special. The restaurant could be cleaner. It's cheap, so you get what you pay for."
     ],
+    openingHours: { 'weekday': '11:30-21:30', 'weekend': '11:30-21:30' },
+    isOpen: true
   },
   {
     id: '5',
@@ -90,6 +98,8 @@ export const mockRestaurants: Restaurant[] = [
       "A true gem. The Margherita pizza is perfection. The staff is friendly and the atmosphere is casual and welcoming.",
       "The pizza was excellent, but the salad was a disappointment. Stick to the pizzas and you'll be happy."
     ],
+    openingHours: { 'weekday': '16:00-22:00', 'weekend': '12:00-23:00' },
+    isOpen: true
   },
     {
     id: '6',
@@ -108,6 +118,8 @@ export const mockRestaurants: Restaurant[] = [
       "Lively atmosphere, especially on weekends. The cocktails are creative and well-made. Can get a bit loud.",
       "The service was a bit slow on a busy Friday night, but the drinks were worth the wait."
     ],
+    openingHours: { 'weekday': '16:00-01:00', 'weekend': '16:00-02:00' },
+    isOpen: true
   },
   {
     id: '7',
@@ -126,6 +138,8 @@ export const mockRestaurants: Restaurant[] = [
       "A fantastic culinary journey. The lamb vindaloo is spicy and flavorful. The service is attentive and knowledgeable.",
       "The food is amazing, but the decor feels a bit dated. The prices are reasonable for the quality."
     ],
+    openingHours: { 'weekday': '12:00-15:00', 'weekend': '17:00-22:00' },
+    isOpen: false
   },
   {
     id: '8',
@@ -144,5 +158,7 @@ export const mockRestaurants: Restaurant[] = [
       "Dimly lit and intimate, it's a great spot for a date. The drink menu is extensive and creative.",
       "It's a small place and can get crowded quickly. The drinks are pricey, but you're paying for quality."
     ],
+    openingHours: { 'weekday': '18:00-02:00', 'weekend': '18:00-02:00' },
+    isOpen: true
   }
 ];

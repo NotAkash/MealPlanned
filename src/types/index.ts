@@ -11,4 +11,9 @@ export interface Restaurant {
   latitude: number;
   longitude: number;
   city: string;
+  openingHours: {
+    weekday: string;
+    weekend: string;
+  };
+  isOpen: boolean;
 }

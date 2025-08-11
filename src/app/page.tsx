@@ -17,26 +17,32 @@ export default function Home() {
   const [rating, setRating] = useState('any');
   const [distance, setDistance] = useState(5);
   const [view, setView] = useState<'list' | 'map'>('list');
+  const [openNow, setOpenNow] = useState(false);
+  const [location, setLocation] = useState<any>(null);
+
 
   const filteredRestaurants = useMemo(() => {
     return mockRestaurants.filter(restaurant => {
       const matchesType = searchType === 'restaurants' ? restaurant.type === 'restaurant' : restaurant.type === 'bar';
-      const matchesSearchTerm = searchTerm.trim() === '' || restaurant.city.toLowerCase().includes(searchTerm.toLowerCase());
+      
+      const matchesSearchTerm = !location || restaurant.city.toLowerCase().includes(location?.label.split(',')[0].toLowerCase());
+
       const matchesPrice = price === 'any' || restaurant.price.length === parseInt(price, 10);
       const matchesRating = rating === 'any' || restaurant.rating >= parseInt(rating, 10);
       const matchesDistance = restaurant.distance <= distance;
+      const matchesOpenNow = !openNow || restaurant.isOpen;
       
-      return matchesType && matchesSearchTerm && matchesPrice && matchesRating && matchesDistance;
+      return matchesType && matchesSearchTerm && matchesPrice && matchesRating && matchesDistance && matchesOpenNow;
     });
-  }, [searchTerm, searchType, price, rating, distance]);
+  }, [searchType, price, rating, distance, openNow, location]);
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
       <main className="flex-grow">
         <SearchSection 
-          searchTerm={searchTerm}
-          onSearchTermChange={setSearchTerm}
+          location={location}
+          onLocationChange={setLocation}
           searchType={searchType}
           onSearchTypeChange={setSearchType}
           price={price}
@@ -45,6 +51,8 @@ export default function Home() {
           onRatingChange={setRating}
           distance={distance}
           onDistanceChange={setDistance}
+          openNow={openNow}
+          onOpenNowChange={setOpenNow}
         />
         <div className="container mx-auto px-4 py-6 flex justify-end">
             <Button variant="outline" onClick={() => setView(view === 'list' ? 'map' : 'list')}>
