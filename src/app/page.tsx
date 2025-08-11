@@ -57,7 +57,7 @@ export default function Home() {
     return mockRestaurants.filter(restaurant => {
       const matchesType = searchType === 'restaurants' ? restaurant.type === 'restaurant' : restaurant.type === 'bar';
       
-      const matchesSearchTerm = !location || !location.value || !location.value.city || (restaurant.city.toLowerCase() === location.value.city.toLowerCase());
+      const matchesSearchTerm = !location?.value?.city || (restaurant.city.toLowerCase() === location.value.city.toLowerCase());
 
       const matchesPrice = price === 'any' || restaurant.price.length === parseInt(price, 10);
       const matchesRating = rating === 'any' || restaurant.rating >= parseInt(rating, 10);
