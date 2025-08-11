@@ -1,0 +1,70 @@
+"use client";
+
+import { MapPin, Search } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+
+export function SearchSection() {
+    return (
+        <section className="py-12 border-b">
+            <div className="container mx-auto px-4">
+                <div className="text-center mb-8">
+                    <h2 className="text-3xl md:text-4xl font-bold text-foreground font-headline mb-2">Find your next favorite bite</h2>
+                    <p className="text-muted-foreground">Discover great restaurants near you.</p>
+                </div>
+                <div className="max-w-4xl mx-auto bg-card p-6 rounded-xl shadow-md">
+                    <div className="flex flex-col sm:flex-row gap-4 mb-6">
+                        <div className="relative flex-grow">
+                            <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                            <Input placeholder="Enter address, city, or zip code" className="pl-11 h-12 text-base" />
+                        </div>
+                        <Button className="h-12 px-6">
+                            <Search className="mr-2 h-4 w-4" />
+                            Search
+                        </Button>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <Select>
+                            <SelectTrigger className="h-11">
+                                <SelectValue placeholder="Any Cuisine" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="any">Any Cuisine</SelectItem>
+                                <SelectItem value="italian">Italian</SelectItem>
+                                <SelectItem value="mexican">Mexican</SelectItem>
+                                <SelectItem value="japanese">Japanese</SelectItem>
+                                <SelectItem value="chinese">Chinese</SelectItem>
+                                <SelectItem value="american">American</SelectItem>
+                            </SelectContent>
+                        </Select>
+                        <Select>
+                            <SelectTrigger className="h-11">
+                                <SelectValue placeholder="Any Price" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="any">Any Price</SelectItem>
+                                <SelectItem value="1">$</SelectItem>
+                                <SelectItem value="2">$$</SelectItem>
+                                <SelectItem value="3">$$$</SelectItem>
+                                <SelectItem value="4">$$$$</SelectItem>
+                            </SelectContent>
+                        </Select>
+                        <Select>
+                            <SelectTrigger className="h-11">
+                                <SelectValue placeholder="Any Rating" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="any">Any Rating</SelectItem>
+                                <SelectItem value="4">4+ Stars</SelectItem>
+                                <SelectItem value="3">3+ Stars</SelectItem>
+                                <SelectItem value="2">2+ Stars</SelectItem>
+                                <SelectItem value="1">1+ Star</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
