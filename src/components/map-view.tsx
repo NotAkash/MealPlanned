@@ -6,18 +6,20 @@ import { Badge } from './ui/badge';
 
 interface MapViewProps {
   restaurants: Restaurant[];
+  center?: { lat: number; lng: number };
 }
 
-export function MapView({ restaurants }: MapViewProps) {
-  const mapCenter = {
-    lat: 45.4215,
-    lng: -75.6972,
+export function MapView({ restaurants, center }: MapViewProps) {
+  const mapCenter = center || {
+    lat: 44.2312,
+    lng: -76.4860,
   };
 
-  const mapUrl = `https://www.google.com/maps/embed/v1/view?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&center=${mapCenter.lat},${mapCenter.lng}&zoom=14&maptype=roadmap`;
+  const mapUrl = `https://www.google.com/maps/embed/v1/view?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&center=${mapCenter.lat},${mapCenter.lng}&zoom=14`;
 
   if (!process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY) {
     return (
+        
         <div className="container mx-auto px-4 py-12">
             <Card>
                 <CardHeader>

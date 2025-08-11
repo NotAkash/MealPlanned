@@ -10,8 +10,10 @@ import React from 'react';
 
 export function PlacesAutocomplete({
   onLocationChange,
+  defaultValue = ''
 }: {
   onLocationChange: (location: any) => void;
+  defaultValue?: string;
 }) {
   const {
     ready,
@@ -24,6 +26,7 @@ export function PlacesAutocomplete({
       componentRestrictions: { country: 'ca' },
     },
     debounce: 300,
+    defaultValue
   });
 
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -31,13 +34,17 @@ export function PlacesAutocomplete({
   };
 
   const handleSelect =
-    ({ description }: { description: string }) =>
+    (suggestion: any) =>
     () => {
-      // When user selects a place, we can replace the keyword without request data from API
-      // by setting the second parameter to "false"
-      setValue(description, false);
+      setValue(suggestion.description, false);
       clearSuggestions();
-      onLocationChange({ label: description, value: description });
+
+      onLocationChange({
+        label: suggestion.description,
+        value: {
+          description: suggestion.description,
+        },
+      });
     };
 
   const renderSuggestions = () =>

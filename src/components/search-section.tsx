@@ -57,7 +57,7 @@ export function SearchSection({
                     <div className="flex flex-col sm:flex-row gap-4 mb-6">
                         <div className="relative flex-grow">
                              <div className="absolute left-3.5 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground z-10"><Search/></div>
-                             {isClient && <PlacesAutocomplete onLocationChange={onLocationChange} />}
+                             {isClient && <PlacesAutocomplete onLocationChange={onLocationChange} defaultValue={location?.label} />}
                         </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-center">
