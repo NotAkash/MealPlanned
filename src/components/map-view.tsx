@@ -26,11 +26,8 @@ export function MapView({ restaurants, center }: MapViewProps) {
 
   const containerStyle = { width: '100%', height: '100%' };
 
-  const mapUrl = `https://www.google.com/maps/embed/v1/view?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&center=${mapCenter.lat},${mapCenter.lng}&zoom=14`;
-
   if (!process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY) {
     return (
-        
         <div className="container mx-auto px-4 py-12">
             <Card>
                 <CardHeader>
@@ -50,7 +47,7 @@ export function MapView({ restaurants, center }: MapViewProps) {
                 </CardContent>
             </Card>
         </div>
-    )
+    );
   }
 
   return (
@@ -65,8 +62,8 @@ export function MapView({ restaurants, center }: MapViewProps) {
                   zoom={14}
                 >
                   {restaurants.map((restaurant) => (
-                    <Marker key={restaurant.id} position={{ lat: restaurant.lat, lng: restaurant.lng }} title={restaurant.name} />
- )})}
+                    <Marker key={restaurant.id} position={{ lat: restaurant.latitude, lng: restaurant.longitude }} title={restaurant.name} />
+                  ))}
                 </GoogleMap>
               )}
               </div>
