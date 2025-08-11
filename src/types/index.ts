@@ -7,4 +7,5 @@ export interface Restaurant {
   distance: string;
   cuisine: string;
   reviews: string[];
+  type?: 'restaurant' | 'bar';
 }

@@ -7,8 +7,28 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 
+interface SearchSectionProps {
+    searchTerm: string;
+    onSearchTermChange: (value: string) => void;
+    searchType: string;
+    onSearchTypeChange: (value: string) => void;
+    price: string;
+    onPriceChange: (value: string) => void;
+    rating: string;
+    onRatingChange: (value: string) => void;
+}
 
-export function SearchSection() {
+
+export function SearchSection({
+    searchTerm,
+    onSearchTermChange,
+    searchType,
+    onSearchTypeChange,
+    price,
+    onPriceChange,
+    rating,
+    onRatingChange,
+}: SearchSectionProps) {
     return (
         <section className="py-12 border-b">
             <div className="container mx-auto px-4">
@@ -19,16 +39,17 @@ export function SearchSection() {
                 <div className="max-w-4xl mx-auto bg-card p-6 rounded-xl shadow-md">
                     <div className="flex flex-col sm:flex-row gap-4 mb-6">
                         <div className="relative flex-grow">
-                            <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                            <Input placeholder="Enter address, city, or zip code" className="pl-11 h-12 text-base" />
+                            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                            <Input 
+                                placeholder="Search by restaurant name..." 
+                                className="pl-11 h-12 text-base" 
+                                value={searchTerm}
+                                onChange={(e) => onSearchTermChange(e.target.value)}
+                            />
                         </div>
-                        <Button className="h-12 px-6">
-                            <Search className="mr-2 h-4 w-4" />
-                            Search
-                        </Button>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <RadioGroup defaultValue="restaurants" className="flex items-center col-span-1 sm:col-span-1">
+                        <RadioGroup value={searchType} onValueChange={onSearchTypeChange} className="flex items-center col-span-1 sm:col-span-1">
                             <div className="flex items-center space-x-2">
                                 <RadioGroupItem value="restaurants" id="r-restaurants" />
                                 <Label htmlFor="r-restaurants">Restaurants</Label>
@@ -38,7 +59,7 @@ export function SearchSection() {
                                 <Label htmlFor="r-bars">Bars</Label>
                             </div>
                         </RadioGroup>
-                        <Select>
+                        <Select value={price} onValueChange={onPriceChange}>
                             <SelectTrigger className="h-11">
                                 <SelectValue placeholder="Any Price" />
                             </SelectTrigger>
@@ -50,7 +71,7 @@ export function SearchSection() {
                                 <SelectItem value="4">$$$$</SelectItem>
                             </SelectContent>
                         </Select>
-                        <Select>
+                        <Select value={rating} onValueChange={onRatingChange}>
                             <SelectTrigger className="h-11">
                                 <SelectValue placeholder="Any Rating" />
                             </SelectTrigger>
