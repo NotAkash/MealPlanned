@@ -8,7 +8,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import { Slider } from "@/components/ui/slider"
 import { Switch } from "@/components/ui/switch"
-import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import { PlacesAutocomplete } from './places-autocomplete';
 
 interface SearchSectionProps {
     location: any;
@@ -57,36 +57,7 @@ export function SearchSection({
                     <div className="flex flex-col sm:flex-row gap-4 mb-6">
                         <div className="relative flex-grow">
                              <div className="absolute left-3.5 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground z-10"><Search/></div>
-                             {isClient && <GooglePlacesAutocomplete
-                                apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
-                                selectProps={{
-                                    value: location,
-                                    onChange: onLocationChange,
-                                    placeholder: 'Search by city/town...',
-                                    styles: {
-                                        input: (provided) => ({
-                                            ...provided,
-                                            paddingLeft: '2.5rem',
-                                            height: '3rem',
-                                        }),
-                                        control: (provided) => ({
-                                            ...provided,
-                                           borderRadius: '0.5rem',
-                                           border: '1px solid hsl(var(--border))',
-                                        }),
-                                        option: (provided, state) => ({
-                                            ...provided,
-                                            backgroundColor: state.isFocused ? 'hsl(var(--accent))' : 'transparent',
-                                            color: 'hsl(var(--foreground))'
-                                        })
-                                    }
-                                }}
-                                autocompletionRequest={{
-                                    componentRestrictions: {
-                                        country: ['ca'],
-                                    }
-                                }}
-                            />}
+                             {isClient && <PlacesAutocomplete onLocationChange={onLocationChange} />}
                         </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-center">
