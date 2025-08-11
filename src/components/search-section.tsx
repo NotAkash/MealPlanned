@@ -6,7 +6,6 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
-import { Switch } from "@/components/ui/switch"
 import { Slider } from "@/components/ui/slider"
 
 interface SearchSectionProps {
@@ -18,8 +17,6 @@ interface SearchSectionProps {
     onPriceChange: (value: string) => void;
     rating: string;
     onRatingChange: (value: string) => void;
-    isBudgetFriendly: boolean;
-    onBudgetFriendlyChange: (checked: boolean) => void;
     distance: number;
     onDistanceChange: (value: number) => void;
 }
@@ -34,8 +31,6 @@ export function SearchSection({
     onPriceChange,
     rating,
     onRatingChange,
-    isBudgetFriendly,
-    onBudgetFriendlyChange,
     distance,
     onDistanceChange,
 }: SearchSectionProps) {
@@ -58,7 +53,7 @@ export function SearchSection({
                             />
                         </div>
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-center">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 items-center">
                         <RadioGroup value={searchType} onValueChange={onSearchTypeChange} className="flex items-center col-span-1 sm:col-span-1">
                             <div className="flex items-center space-x-2">
                                 <RadioGroupItem value="restaurants" id="r-restaurants" />
@@ -93,10 +88,6 @@ export function SearchSection({
                                 <SelectItem value="1">1+ Star</SelectItem>
                             </SelectContent>
                         </Select>
-                        <div className="flex items-center space-x-2">
-                            <Switch id="budget-friendly" checked={isBudgetFriendly} onCheckedChange={onBudgetFriendlyChange} />
-                            <Label htmlFor="budget-friendly">Budget-Friendly</Label>
-                        </div>
                     </div>
                     <div className="mt-6">
                         <Label>Distance: &lt; {distance} km</Label>

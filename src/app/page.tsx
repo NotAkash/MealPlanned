@@ -15,7 +15,6 @@ export default function Home() {
   const [searchType, setSearchType] = useState('restaurants'); // 'restaurants' or 'bars'
   const [price, setPrice] = useState('any');
   const [rating, setRating] = useState('any');
-  const [isBudgetFriendly, setIsBudgetFriendly] = useState(false);
   const [distance, setDistance] = useState(5);
   const [view, setView] = useState<'list' | 'map'>('list');
 
@@ -25,12 +24,11 @@ export default function Home() {
       const matchesSearchTerm = searchTerm.trim() === '' || restaurant.city.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesPrice = price === 'any' || restaurant.price.length === parseInt(price, 10);
       const matchesRating = rating === 'any' || restaurant.rating >= parseInt(rating, 10);
-      const matchesBudget = !isBudgetFriendly || restaurant.price.length <= 2;
       const matchesDistance = restaurant.distance <= distance;
       
-      return matchesType && matchesSearchTerm && matchesPrice && matchesRating && matchesBudget && matchesDistance;
+      return matchesType && matchesSearchTerm && matchesPrice && matchesRating && matchesDistance;
     });
-  }, [searchTerm, searchType, price, rating, isBudgetFriendly, distance]);
+  }, [searchTerm, searchType, price, rating, distance]);
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
@@ -45,8 +43,6 @@ export default function Home() {
           onPriceChange={setPrice}
           rating={rating}
           onRatingChange={setRating}
-          isBudgetFriendly={isBudgetFriendly}
-          onBudgetFriendlyChange={setIsBudgetFriendly}
           distance={distance}
           onDistanceChange={setDistance}
         />
