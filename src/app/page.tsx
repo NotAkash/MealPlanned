@@ -17,7 +17,7 @@ export default function Home() {
   const [searchType, setSearchType] = useState('restaurants'); // 'restaurants' or 'bars'
   const [price, setPrice] = useState('any');
   const [rating, setRating] = useState('any');
-  const [distance, setDistance] = useState(50);
+  const [distance, setDistance] = useState(5);
   const [view, setView] = useState<'list' | 'map'>('list');
   const [openNow, setOpenNow] = useState(false);
   const [location, setLocation] = useState<any | null>(null);
@@ -88,15 +88,19 @@ export default function Home() {
 
 
   const filteredRestaurants = useMemo(() => {
-    return restaurantsWithDistance.filter(restaurant => {
-      const matchesType = searchType === 'restaurants' ? restaurant.type === 'restaurant' : restaurant.type === 'bar';
-      const matchesPrice = price === 'any' || restaurant.price.length === parseInt(price, 10);
-      const matchesRating = rating === 'any' || restaurant.rating >= parseInt(rating, 10);
-      const matchesOpenNow = !openNow || restaurant.isOpen;
-      const matchesDistance = restaurant.distance < distance;
+    const sorted = restaurantsWithDistance
+      .filter(restaurant => {
+        const matchesType = searchType === 'restaurants' ? restaurant.type === 'restaurant' : restaurant.type === 'bar';
+        const matchesPrice = price === 'any' || restaurant.price.length === parseInt(price, 10);
+        const matchesRating = rating === 'any' || restaurant.rating >= parseInt(rating, 10);
+        const matchesOpenNow = !openNow || restaurant.isOpen;
+        const matchesDistance = restaurant.distance < distance;
 
-      return matchesType && matchesPrice && matchesRating && matchesOpenNow && matchesDistance;
-    });
+        return matchesType && matchesPrice && matchesRating && matchesOpenNow && matchesDistance;
+      })
+      .sort((a, b) => a.distance - b.distance);
+
+    return sorted.slice(0, 5);
   }, [searchType, price, rating, openNow, distance, restaurantsWithDistance]);
 
 
