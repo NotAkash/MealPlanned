@@ -28,13 +28,19 @@ export default function Home() {
     const defaultAddress = "99 University Ave, Kingston, ON K7L 3N6, Canada";
     getGeocode({ address: defaultAddress }).then(results => {
         const { lat, lng } = getLatLng(results[0]);
+        const addressComponents = results[0].address_components;
+        const cityComponent = addressComponents.find(c =>
+          c.types.includes('locality')
+        );
+        const city = cityComponent ? cityComponent.long_name : 'Kingston';
+
         setLocation({
           label: defaultAddress,
           value: {
             description: defaultAddress,
             lat,
             lng,
-            city: 'Kingston',
+            city,
           },
         });
       });
@@ -86,11 +92,12 @@ export default function Home() {
       const matchesPrice = price === 'any' || restaurant.price.length === parseInt(price, 10);
       const matchesRating = rating === 'any' || restaurant.rating >= parseInt(rating, 10);
       const matchesOpenNow = !openNow || restaurant.isOpen;
-      const matchesDistance = restaurant.distance <= distance;
+      const matchesCity = !location?.value?.city || restaurant.city === location.value.city;
 
-      return matchesType && matchesPrice && matchesRating && matchesOpenNow && matchesDistance;
+
+      return matchesType && matchesPrice && matchesRating && matchesOpenNow && matchesCity;
     });
-  }, [searchType, price, rating, distance, openNow, restaurantsWithDistance]);
+  }, [searchType, price, rating, openNow, restaurantsWithDistance, location]);
 
 
   return (
