@@ -56,10 +56,9 @@ export default function Home() {
   };
 
   const filteredRestaurants = useMemo(() => {
-    return mockRestaurants
-      .map(restaurant => {
+    const restaurantsWithDistance = mockRestaurants.map(restaurant => {
         if (!location?.value?.lat || !location?.value?.lng) {
-            // Return restaurant with its default distance if no location is set
+            // If no location is set, use the default distance
             return restaurant;
         }
         const distanceFromLocation = getDistance(
@@ -67,16 +66,17 @@ export default function Home() {
             { lat: restaurant.latitude, lng: restaurant.longitude }
         );
         return { ...restaurant, distance: distanceFromLocation };
-      })
-      .filter(restaurant => {
-        const matchesType = searchType === 'restaurants' ? restaurant.type === 'restaurant' : restaurant.type === 'bar';
-        const matchesPrice = price === 'any' || restaurant.price.length === parseInt(price, 10);
-        const matchesRating = rating === 'any' || restaurant.rating >= parseInt(rating, 10);
-        const matchesOpenNow = !openNow || restaurant.isOpen;
-        const matchesDistance = restaurant.distance <= distance;
+    });
 
-        return matchesType && matchesPrice && matchesRating && matchesOpenNow && matchesDistance;
-      });
+    return restaurantsWithDistance.filter(restaurant => {
+      const matchesType = searchType === 'restaurants' ? restaurant.type === 'restaurant' : restaurant.type === 'bar';
+      const matchesPrice = price === 'any' || restaurant.price.length === parseInt(price, 10);
+      const matchesRating = rating === 'any' || restaurant.rating >= parseInt(rating, 10);
+      const matchesOpenNow = !openNow || restaurant.isOpen;
+      const matchesDistance = restaurant.distance <= distance;
+
+      return matchesType && matchesPrice && matchesRating && matchesOpenNow && matchesDistance;
+    });
   }, [searchType, price, rating, distance, openNow, location]);
 
   return (
