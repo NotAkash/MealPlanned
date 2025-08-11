@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
@@ -56,24 +57,26 @@ export default function Home() {
   };
 
   const filteredRestaurants = useMemo(() => {
-    const restaurantsWithDistance = mockRestaurants.map(restaurant => {
-        if (!location?.value?.lat || !location?.value?.lng) {
-            // If no location is set, use the default distance
-            return restaurant;
-        }
+    let restaurantsToFilter = mockRestaurants;
+
+    if (location?.value?.lat && location?.value?.lng) {
+      restaurantsToFilter = mockRestaurants.map(restaurant => {
         const distanceFromLocation = getDistance(
-            { lat: location.value.lat, lng: location.value.lng },
-            { lat: restaurant.latitude, lng: restaurant.longitude }
+          { lat: location.value.lat, lng: location.value.lng },
+          { lat: restaurant.latitude, lng: restaurant.longitude }
         );
         return { ...restaurant, distance: distanceFromLocation };
-    });
+      });
+    }
 
-    return restaurantsWithDistance.filter(restaurant => {
+    return restaurantsToFilter.filter(restaurant => {
       const matchesType = searchType === 'restaurants' ? restaurant.type === 'restaurant' : restaurant.type === 'bar';
       const matchesPrice = price === 'any' || restaurant.price.length === parseInt(price, 10);
       const matchesRating = rating === 'any' || restaurant.rating >= parseInt(rating, 10);
       const matchesOpenNow = !openNow || restaurant.isOpen;
-      const matchesDistance = restaurant.distance <= distance;
+      
+      // Only filter by distance if a location is actually set
+      const matchesDistance = (location?.value?.lat && location.value.lng) ? restaurant.distance <= distance : true;
 
       return matchesType && matchesPrice && matchesRating && matchesOpenNow && matchesDistance;
     });
