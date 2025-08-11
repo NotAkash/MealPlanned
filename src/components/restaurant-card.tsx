@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import type { Restaurant } from '@/types';
 import { Star, Map, Sparkles, Loader2, ServerCrash, Heart, Share2 } from 'lucide-react';
@@ -35,9 +35,16 @@ export function RestaurantCard({ restaurant }: RestaurantCardProps) {
   const [error, setError] = useState('');
   const [isFavorite, setIsFavorite] = useState(false);
   const { toast } = useToast();
+  const [shareUrl, setShareUrl] = useState('');
+
+  useEffect(() => {
+    // window is only available on the client
+    setShareUrl(`${window.location.origin}/r/${restaurant.id}`);
+  }, [restaurant.id]);
+
 
   const handleShare = () => {
-    const shareUrl = `${window.location.origin}/r/${restaurant.id}`;
+    if (!shareUrl) return;
     navigator.clipboard.writeText(shareUrl);
     toast({
       title: "Link Copied!",
@@ -96,10 +103,10 @@ export function RestaurantCard({ restaurant }: RestaurantCardProps) {
                 <div className="flex gap-2">
                     <Button variant="outline" size="sm" onClick={handleShare}>Copy Link</Button>
                     <Button size="sm" asChild>
-                        <a href={`https://wa.me/?text=Check%20out%20this%20restaurant%3A%20${encodeURIComponent(restaurant.name)}%20${encodeURIComponent(window.location.origin + '/r/' + restaurant.id)}`} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                        <a href={`https://wa.me/?text=Check%20out%20this%20restaurant%3A%20${encodeURIComponent(restaurant.name)}%20${encodeURIComponent(shareUrl)}`} target="_blank" rel="noopener noreferrer">WhatsApp</a>
                     </Button>
                     <Button size="sm" asChild>
-                       <a href={`instagram://direct/new?text=${encodeURIComponent('Check out this restaurant: ' + restaurant.name + ' ' + window.location.origin + '/r/' + restaurant.id)}`} >DM</a>
+                       <a href={`instagram://direct/new?text=${encodeURIComponent('Check out this restaurant: ' + restaurant.name + ' ' + shareUrl)}`} >DM</a>
                     </Button>
                 </div>
               </PopoverContent>

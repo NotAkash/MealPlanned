@@ -22,7 +22,7 @@ export default function Home() {
   const filteredRestaurants = useMemo(() => {
     return mockRestaurants.filter(restaurant => {
       const matchesType = searchType === 'restaurants' ? restaurant.type === 'restaurant' : restaurant.type === 'bar';
-      const matchesSearchTerm = restaurant.name.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesSearchTerm = searchTerm.trim() === '' || restaurant.city.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesPrice = price === 'any' || restaurant.price.length === parseInt(price, 10);
       const matchesRating = rating === 'any' || restaurant.rating >= parseInt(rating, 10);
       const matchesBudget = !isBudgetFriendly || restaurant.price.length <= 2;

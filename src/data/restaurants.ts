@@ -10,6 +10,7 @@ export const mockRestaurants: Restaurant[] = [
     distance: 0.8,
     cuisine: 'Italian',
     type: 'restaurant',
+    city: 'Ottawa',
     latitude: 45.4215,
     longitude: -75.6972,
     reviews: [
@@ -27,6 +28,7 @@ export const mockRestaurants: Restaurant[] = [
     distance: 1.9,
     cuisine: 'Mexican',
     type: 'restaurant',
+    city: 'Ottawa',
     latitude: 45.4250,
     longitude: -75.7000,
     reviews: [
@@ -44,6 +46,7 @@ export const mockRestaurants: Restaurant[] = [
     distance: 4.0,
     cuisine: 'Japanese',
     type: 'restaurant',
+    city: 'Ottawa',
     latitude: 45.4195,
     longitude: -75.6982,
     reviews: [
@@ -61,6 +64,7 @@ export const mockRestaurants: Restaurant[] = [
     distance: 1.3,
     cuisine: 'Chinese',
     type: 'restaurant',
+    city: 'Ottawa',
     latitude: 45.4235,
     longitude: -75.6942,
     reviews: [
@@ -78,6 +82,7 @@ export const mockRestaurants: Restaurant[] = [
     distance: 2.4,
     cuisine: 'Italian',
     type: 'restaurant',
+    city: 'Ottawa',
     latitude: 45.4188,
     longitude: -75.6919,
     reviews: [
@@ -95,6 +100,7 @@ export const mockRestaurants: Restaurant[] = [
     distance: 4.9,
     cuisine: 'Bar, Gastropub',
     type: 'bar',
+    city: 'Ottawa',
     latitude: 45.4285,
     longitude: -75.6972,
     reviews: [
@@ -112,6 +118,7 @@ export const mockRestaurants: Restaurant[] = [
     distance: 3.2,
     cuisine: 'Indian',
     type: 'restaurant',
+    city: 'Ottawa',
     latitude: 45.4115,
     longitude: -75.7072,
     reviews: [
@@ -129,6 +136,7 @@ export const mockRestaurants: Restaurant[] = [
     distance: 0.5,
     cuisine: 'Bar, Cocktails',
     type: 'bar',
+    city: 'Ottawa',
     latitude: 45.4225,
     longitude: -75.7012,
     reviews: [
