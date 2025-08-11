@@ -4,6 +4,9 @@ import { MapPin, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Label } from "@/components/ui/label"
+
 
 export function SearchSection() {
     return (
@@ -11,7 +14,7 @@ export function SearchSection() {
             <div className="container mx-auto px-4">
                 <div className="text-center mb-8">
                     <h2 className="text-3xl md:text-4xl font-bold text-foreground font-headline mb-2">Find your next favorite bite</h2>
-                    <p className="text-muted-foreground">Discover great restaurants near you.</p>
+                    <p className="text-muted-foreground">Discover great restaurants and bars near you.</p>
                 </div>
                 <div className="max-w-4xl mx-auto bg-card p-6 rounded-xl shadow-md">
                     <div className="flex flex-col sm:flex-row gap-4 mb-6">
@@ -25,19 +28,16 @@ export function SearchSection() {
                         </Button>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <Select>
-                            <SelectTrigger className="h-11">
-                                <SelectValue placeholder="Any Cuisine" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="any">Any Cuisine</SelectItem>
-                                <SelectItem value="italian">Italian</SelectItem>
-                                <SelectItem value="mexican">Mexican</SelectItem>
-                                <SelectItem value="japanese">Japanese</SelectItem>
-                                <SelectItem value="chinese">Chinese</SelectItem>
-                                <SelectItem value="american">American</SelectItem>
-                            </SelectContent>
-                        </Select>
+                        <RadioGroup defaultValue="restaurants" className="flex items-center col-span-1 sm:col-span-1">
+                            <div className="flex items-center space-x-2">
+                                <RadioGroupItem value="restaurants" id="r-restaurants" />
+                                <Label htmlFor="r-restaurants">Restaurants</Label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <RadioGroupItem value="bars" id="r-bars" />
+                                <Label htmlFor="r-bars">Bars</Label>
+                            </div>
+                        </RadioGroup>
                         <Select>
                             <SelectTrigger className="h-11">
                                 <SelectValue placeholder="Any Price" />
