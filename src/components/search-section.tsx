@@ -1,11 +1,13 @@
 "use client";
 
-import { MapPin, Search } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
+import { Switch } from "@/components/ui/switch"
+import { Slider } from "@/components/ui/slider"
 
 interface SearchSectionProps {
     searchTerm: string;
@@ -16,6 +18,10 @@ interface SearchSectionProps {
     onPriceChange: (value: string) => void;
     rating: string;
     onRatingChange: (value: string) => void;
+    isBudgetFriendly: boolean;
+    onBudgetFriendlyChange: (checked: boolean) => void;
+    distance: number;
+    onDistanceChange: (value: number) => void;
 }
 
 
@@ -28,13 +34,17 @@ export function SearchSection({
     onPriceChange,
     rating,
     onRatingChange,
+    isBudgetFriendly,
+    onBudgetFriendlyChange,
+    distance,
+    onDistanceChange,
 }: SearchSectionProps) {
     return (
         <section className="py-12 border-b">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-8">
                     <h2 className="text-3xl md:text-4xl font-bold text-foreground font-headline mb-2">Find your next favorite bite</h2>
-                    <p className="text-muted-foreground">Discover great restaurants and bars near you.</p>
+                    <p className="text-muted-foreground">Discover great restaurants and bars near you in Canada.</p>
                 </div>
                 <div className="max-w-4xl mx-auto bg-card p-6 rounded-xl shadow-md">
                     <div className="flex flex-col sm:flex-row gap-4 mb-6">
@@ -48,7 +58,7 @@ export function SearchSection({
                             />
                         </div>
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-center">
                         <RadioGroup value={searchType} onValueChange={onSearchTypeChange} className="flex items-center col-span-1 sm:col-span-1">
                             <div className="flex items-center space-x-2">
                                 <RadioGroupItem value="restaurants" id="r-restaurants" />
@@ -83,6 +93,20 @@ export function SearchSection({
                                 <SelectItem value="1">1+ Star</SelectItem>
                             </SelectContent>
                         </Select>
+                        <div className="flex items-center space-x-2">
+                            <Switch id="budget-friendly" checked={isBudgetFriendly} onCheckedChange={onBudgetFriendlyChange} />
+                            <Label htmlFor="budget-friendly">Budget-Friendly</Label>
+                        </div>
+                    </div>
+                    <div className="mt-6">
+                        <Label>Distance: &lt; {distance} km</Label>
+                        <Slider
+                            value={[distance]}
+                            onValueChange={(value) => onDistanceChange(value[0])}
+                            max={10}
+                            step={0.5}
+                            className="mt-2"
+                        />
                     </div>
                 </div>
             </div>

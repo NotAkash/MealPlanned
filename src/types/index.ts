@@ -4,8 +4,10 @@ export interface Restaurant {
   image: string;
   rating: number;
   price: '$' | '$$' | '$$$' | '$$$$';
-  distance: string;
+  distance: number;
   cuisine: string;
   reviews: string[];
-  type?: 'restaurant' | 'bar';
+  type: 'restaurant' | 'bar';
+  latitude: number;
+  longitude: number;
 }

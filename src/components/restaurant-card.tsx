@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import type { Restaurant } from '@/types';
-import { Star, Map, Sparkles, Loader2, ServerCrash, Heart } from 'lucide-react';
+import { Star, Map, Sparkles, Loader2, ServerCrash, Heart, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -15,6 +15,12 @@ import {
   DialogDescription,
   DialogFooter
 } from '@/components/ui/dialog';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import { useToast } from "@/hooks/use-toast"
 import { summarizeRestaurantReviews } from '@/ai/flows/summarize-restaurant-reviews';
 import { cn } from '@/lib/utils';
 
@@ -28,6 +34,16 @@ export function RestaurantCard({ restaurant }: RestaurantCardProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [isFavorite, setIsFavorite] = useState(false);
+  const { toast } = useToast();
+
+  const handleShare = () => {
+    const shareUrl = `${window.location.origin}/r/${restaurant.id}`;
+    navigator.clipboard.writeText(shareUrl);
+    toast({
+      title: "Link Copied!",
+      description: "Restaurant link has been copied to your clipboard.",
+    });
+  }
 
   const handleSummarizeReviews = async () => {
     setIsDialogOpen(true);
@@ -64,8 +80,31 @@ export function RestaurantCard({ restaurant }: RestaurantCardProps) {
     <>
       <Card className="flex flex-col overflow-hidden h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1 rounded-xl border">
         <CardHeader className="p-0 relative">
-          <div className="absolute top-3 right-3 z-10">
-             <Button
+          <div className="absolute top-3 right-3 z-10 flex gap-2">
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="secondary"
+                  size="icon"
+                  className="rounded-full h-9 w-9 bg-white/80 backdrop-blur-sm hover:bg-white"
+                >
+                    <Share2 className="h-5 w-5 text-muted-foreground" />
+                    <span className="sr-only">Share</span>
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto">
+                <div className="flex gap-2">
+                    <Button variant="outline" size="sm" onClick={handleShare}>Copy Link</Button>
+                    <Button size="sm" asChild>
+                        <a href={`https://wa.me/?text=Check%20out%20this%20restaurant%3A%20${encodeURIComponent(restaurant.name)}%20${encodeURIComponent(window.location.origin + '/r/' + restaurant.id)}`} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                    </Button>
+                    <Button size="sm" asChild>
+                       <a href={`instagram://direct/new?text=${encodeURIComponent('Check out this restaurant: ' + restaurant.name + ' ' + window.location.origin + '/r/' + restaurant.id)}`} >DM</a>
+                    </Button>
+                </div>
+              </PopoverContent>
+            </Popover>
+            <Button
               variant="secondary"
               size="icon"
               className="rounded-full h-9 w-9 bg-white/80 backdrop-blur-sm hover:bg-white"
@@ -92,7 +131,7 @@ export function RestaurantCard({ restaurant }: RestaurantCardProps) {
             {renderRating(restaurant.rating)}
             <span className="font-bold text-lg text-foreground">{restaurant.price}</span>
           </div>
-          <p className="text-sm text-muted-foreground">~{restaurant.distance} away</p>
+          <p className="text-sm text-muted-foreground">~{restaurant.distance}km away</p>
         </CardContent>
         <CardFooter className="p-4 pt-0 grid grid-cols-2 gap-2">
           <Button variant="outline">
