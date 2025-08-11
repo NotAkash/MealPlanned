@@ -14,7 +14,6 @@ import { getGeocode, getLatLng } from 'use-places-autocomplete';
 import { getDistance } from '@/lib/utils';
 
 export default function Home() {
-  const [searchTerm, setSearchTerm] = useState('');
   const [searchType, setSearchType] = useState('restaurants'); // 'restaurants' or 'bars'
   const [price, setPrice] = useState('any');
   const [rating, setRating] = useState('any');
@@ -73,16 +72,18 @@ export default function Home() {
   };
 
   const restaurantsWithDistance = useMemo(() => {
-    if (location?.value?.lat && location?.value?.lng) {
-      return mockRestaurants.map(restaurant => {
-        const distanceFromLocation = getDistance(
-          { lat: location.value.lat, lng: location.value.lng },
-          { lat: restaurant.latitude, lng: restaurant.longitude }
-        );
-        return { ...restaurant, distance: distanceFromLocation };
-      });
+    if (!location?.value?.lat || !location?.value?.lng) {
+      // Return all restaurants with a default large distance if no location is set
+      return mockRestaurants.map(restaurant => ({ ...restaurant, distance: 9999 }));
     }
-    return mockRestaurants.map(r => ({ ...r, distance: Infinity})); // Return restaurants with infinite distance if no location
+    
+    return mockRestaurants.map(restaurant => {
+      const distanceFromLocation = getDistance(
+        { lat: location.value.lat, lng: location.value.lng },
+        { lat: restaurant.latitude, lng: restaurant.longitude }
+      );
+      return { ...restaurant, distance: distanceFromLocation };
+    });
   }, [location]);
 
 
@@ -92,12 +93,11 @@ export default function Home() {
       const matchesPrice = price === 'any' || restaurant.price.length === parseInt(price, 10);
       const matchesRating = rating === 'any' || restaurant.rating >= parseInt(rating, 10);
       const matchesOpenNow = !openNow || restaurant.isOpen;
-      const matchesCity = !location?.value?.city || restaurant.city === location.value.city;
+      const matchesDistance = restaurant.distance < distance;
 
-
-      return matchesType && matchesPrice && matchesRating && matchesOpenNow && matchesCity;
+      return matchesType && matchesPrice && matchesRating && matchesOpenNow && matchesDistance;
     });
-  }, [searchType, price, rating, openNow, restaurantsWithDistance, location]);
+  }, [searchType, price, rating, openNow, distance, restaurantsWithDistance]);
 
 
   return (

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from 'react';
@@ -105,8 +106,8 @@ export function SearchSection({
                         <Slider
                             value={[distance]}
                             onValueChange={(value) => onDistanceChange(value[0])}
-                            max={10}
-                            step={0.5}
+                            max={50}
+                            step={1}
                             className="mt-2"
                         />
                     </div>

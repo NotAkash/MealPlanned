@@ -1,3 +1,4 @@
+
 import type { Restaurant } from '@/types';
 
 export const mockRestaurants: Restaurant[] = [
@@ -10,9 +11,9 @@ export const mockRestaurants: Restaurant[] = [
     distance: 0.8,
     cuisine: 'Italian',
     type: 'restaurant',
-    city: 'Ottawa',
-    latitude: 45.4215,
-    longitude: -75.6972,
+    city: 'Kingston',
+    latitude: 44.2323,
+    longitude: -76.4813,
     reviews: [
       "Absolutely divine pasta! The atmosphere is cozy and romantic. A bit pricey, but worth it for a special occasion.",
       "The service was impeccable. I had the lasagna and it was the best I've ever tasted. Highly recommend the tiramisu for dessert.",
@@ -30,9 +31,9 @@ export const mockRestaurants: Restaurant[] = [
     distance: 1.9,
     cuisine: 'Mexican',
     type: 'restaurant',
-    city: 'Ottawa',
-    latitude: 45.4250,
-    longitude: -75.7000,
+    city: 'Kingston',
+    latitude: 44.2299,
+    longitude: -76.4851,
     reviews: [
       "Incredible tacos and margaritas! The vibe is fun and lively. Great prices for the quality of food.",
       "A must-visit for Mexican food lovers. The guacamole is fresh and the carnitas are to die for. It can get crowded, so be prepared to wait.",
@@ -50,9 +51,9 @@ export const mockRestaurants: Restaurant[] = [
     distance: 4.0,
     cuisine: 'Japanese',
     type: 'restaurant',
-    city: 'Ottawa',
-    latitude: 45.4195,
-    longitude: -75.6982,
+    city: 'Kingston',
+    latitude: 44.2345,
+    longitude: -76.4799,
     reviews: [
       "The freshest sushi I've had in the city. The chef's omakase is an experience you won't forget. Exquisite.",
       "Elegant and serene. Each piece of sushi is a work of art. It's expensive, but the quality is unmatched.",
@@ -63,86 +64,6 @@ export const mockRestaurants: Restaurant[] = [
   },
   {
     id: '4',
-    name: 'Dragon Wok',
-    image: 'https://placehold.co/600x400.png',
-    rating: 3.9,
-    price: '$',
-    distance: 1.3,
-    cuisine: 'Chinese',
-    type: 'restaurant',
-    city: 'Ottawa',
-    latitude: 45.4235,
-    longitude: -75.6942,
-    reviews: [
-      "Great value for money. The General Tso's chicken is a crowd-pleaser. Perfect for a quick and satisfying meal.",
-      "Solid American-style Chinese food. The portions are huge and the lunch specials are a bargain.",
-      "The food was okay, nothing special. The restaurant could be cleaner. It's cheap, so you get what you pay for."
-    ],
-    openingHours: { 'weekday': '11:30-21:30', 'weekend': '11:30-21:30' },
-    isOpen: true
-  },
-  {
-    id: '5',
-    name: 'La Pizzeria',
-    image: 'https://placehold.co/600x400.png',
-    rating: 4.6,
-    price: '$$',
-    distance: 2.4,
-    cuisine: 'Italian',
-    type: 'restaurant',
-    city: 'Ottawa',
-    latitude: 45.4188,
-    longitude: -75.6919,
-    reviews: [
-      "Authentic Neapolitan pizza. The crust is perfect - chewy and charred in all the right places. Simple, but delicious.",
-      "A true gem. The Margherita pizza is perfection. The staff is friendly and the atmosphere is casual and welcoming.",
-      "The pizza was excellent, but the salad was a disappointment. Stick to the pizzas and you'll be happy."
-    ],
-    openingHours: { 'weekday': '16:00-22:00', 'weekend': '12:00-23:00' },
-    isOpen: true
-  },
-    {
-    id: '6',
-    name: 'The Tipsy Fox',
-    image: 'https://placehold.co/600x400.png',
-    rating: 4.3,
-    price: '$$',
-    distance: 4.9,
-    cuisine: 'Bar, Gastropub',
-    type: 'bar',
-    city: 'Ottawa',
-    latitude: 45.4285,
-    longitude: -75.6972,
-    reviews: [
-      "Great selection of craft beers. The pub fare is elevated and delicious. A cool spot to hang out with friends.",
-      "Lively atmosphere, especially on weekends. The cocktails are creative and well-made. Can get a bit loud.",
-      "The service was a bit slow on a busy Friday night, but the drinks were worth the wait."
-    ],
-    openingHours: { 'weekday': '16:00-01:00', 'weekend': '16:00-02:00' },
-    isOpen: true
-  },
-  {
-    id: '7',
-    name: 'The Spice Route',
-    image: 'https://placehold.co/600x400.png',
-    rating: 4.7,
-    price: '$$$',
-    distance: 3.2,
-    cuisine: 'Indian',
-    type: 'restaurant',
-    city: 'Ottawa',
-    latitude: 45.4115,
-    longitude: -75.7072,
-    reviews: [
-      "Incredible depth of flavor in every dish. The butter chicken is rich and creamy. The naan bread is always fresh and hot.",
-      "A fantastic culinary journey. The lamb vindaloo is spicy and flavorful. The service is attentive and knowledgeable.",
-      "The food is amazing, but the decor feels a bit dated. The prices are reasonable for the quality."
-    ],
-    openingHours: { 'weekday': '12:00-15:00', 'weekend': '17:00-22:00' },
-    isOpen: false
-  },
-  {
-    id: '8',
     name: 'The Alibi Room',
     image: 'https://placehold.co/600x400.png',
     rating: 4.4,
@@ -150,9 +71,109 @@ export const mockRestaurants: Restaurant[] = [
     distance: 0.5,
     cuisine: 'Bar, Cocktails',
     type: 'bar',
-    city: 'Ottawa',
-    latitude: 45.4225,
-    longitude: -75.7012,
+    city: 'Kingston',
+    latitude: 44.2307,
+    longitude: -76.4859,
+    reviews: [
+      "Best cocktail bar in the city, hands down. The mixologists are true artists. A must-visit for cocktail connoisseurs.",
+      "Dimly lit and intimate, it's a great spot for a date. The drink menu is extensive and creative.",
+      "It's a small place and can get crowded quickly. The drinks are pricey, but you're paying for quality."
+    ],
+    openingHours: { 'weekday': '18:00-02:00', 'weekend': '18:00-02:00' },
+    isOpen: true
+  },
+  {
+    id: '5',
+    name: 'The Iron Duke',
+    image: 'https://placehold.co/600x400.png',
+    rating: 4.1,
+    price: '$$',
+    distance: 1.2,
+    cuisine: 'Pub, Bar',
+    type: 'bar',
+    city: 'Kingston',
+    latitude: 44.2295,
+    longitude: -76.4831,
+    reviews: [
+      "Classic pub with a great atmosphere. The fish and chips are fantastic. Great selection of beers on tap.",
+      "A cozy spot to grab a pint. The staff is friendly and the service is quick.",
+      "Can get very busy on weekends. The food is decent pub grub."
+    ],
+    openingHours: { 'weekday': '12:00-01:00', 'weekend': '12:00-02:00' },
+    isOpen: true
+  },
+  {
+    id: '6',
+    name: 'Atomica',
+    image: 'https://placehold.co/600x400.png',
+    rating: 4.6,
+    price: '$$',
+    distance: 0.9,
+    cuisine: 'Italian',
+    type: 'restaurant',
+    city: 'Kingston',
+    latitude: 44.2291,
+    longitude: -76.4842,
+    reviews: [
+      "Modern Italian with a twist. The pizzas are creative and delicious. Great cocktail menu as well.",
+      "A vibrant and bustling atmosphere. The food is consistently good. Reservations are recommended.",
+      "The music was a bit too loud for a conversation. The service was excellent, though."
+    ],
+    openingHours: { 'weekday': '17:00-22:00', 'weekend': '17:00-23:00' },
+    isOpen: true
+  },
+  {
+    id: '7',
+    name: 'The Golden Spoon - Toronto',
+    image: 'https://placehold.co/600x400.png',
+    rating: 4.5,
+    price: '$$$',
+    distance: 0.8,
+    cuisine: 'Italian',
+    type: 'restaurant',
+    city: 'Toronto',
+    latitude: 43.6532,
+    longitude: -79.3832,
+    reviews: [
+      "Absolutely divine pasta! The atmosphere is cozy and romantic. A bit pricey, but worth it for a special occasion.",
+      "The service was impeccable. I had the lasagna and it was the best I've ever tasted. Highly recommend the tiramisu for dessert.",
+      "Good food, but it was very loud. Not ideal for a quiet dinner. The pizza was average."
+    ],
+    openingHours: { 'weekday': '11:00-22:00', 'weekend': '12:00-23:00' },
+    isOpen: true
+  },
+  {
+    id: '8',
+    name: 'Taco Fiesta - Toronto',
+    image: 'https://placehold.co/600x400.png',
+    rating: 4.2,
+    price: '$$',
+    distance: 1.9,
+    cuisine: 'Mexican',
+    type: 'restaurant',
+    city: 'Toronto',
+    latitude: 43.6560,
+    longitude: -79.3800,
+    reviews: [
+      "Incredible tacos and margaritas! The vibe is fun and lively. Great prices for the quality of food.",
+      "A must-visit for Mexican food lovers. The guacamole is fresh and the carnitas are to die for. It can get crowded, so be prepared to wait.",
+      "The tacos were a bit greasy for my taste, but the flavors were good. The service was a little slow during peak hours."
+    ],
+    openingHours: { 'weekday': '12:00-21:00', 'weekend': '12:00-22:00' },
+    isOpen: true
+  },
+  {
+    id: '9',
+    name: 'The Alibi Room - Toronto',
+    image: 'https://placehold.co/600x400.png',
+    rating: 4.4,
+    price: '$$',
+    distance: 0.5,
+    cuisine: 'Bar, Cocktails',
+    type: 'bar',
+    city: 'Toronto',
+    latitude: 43.6515,
+    longitude: -79.3872,
     reviews: [
       "Best cocktail bar in the city, hands down. The mixologists are true artists. A must-visit for cocktail connoisseurs.",
       "Dimly lit and intimate, it's a great spot for a date. The drink menu is extensive and creative.",
