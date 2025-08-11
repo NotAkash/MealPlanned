@@ -17,7 +17,7 @@ export default function Home() {
   const [searchType, setSearchType] = useState('restaurants'); // 'restaurants' or 'bars'
   const [price, setPrice] = useState('any');
   const [rating, setRating] = useState('any');
-  const [distance, setDistance] = useState(5);
+  const [distance, setDistance] = useState(50);
   const [view, setView] = useState<'list' | 'map'>('list');
   const [openNow, setOpenNow] = useState(false);
   const [location, setLocation] = useState<any | null>(null);
