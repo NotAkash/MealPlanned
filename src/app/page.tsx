@@ -21,18 +21,28 @@ export default function Home() {
   const [distance, setDistance] = useState(5);
   const [view, setView] = useState<'list' | 'map'>('list');
   const [openNow, setOpenNow] = useState(false);
-  const [location, setLocation] = useState<any>({
-    label: '99 University Ave, Kingston, ON K7L 3N6, Canada',
-    value: {
-      description: '99 University Ave, Kingston, ON K7L 3N6, Canada',
-      lat: 44.2253,
-      lng: -76.4951,
-      city: 'Kingston',
-    },
-  });
+  const [location, setLocation] = useState<any | null>(null);
+
+  useEffect(() => {
+    // Set default location on initial render
+    const defaultAddress = "99 University Ave, Kingston, ON K7L 3N6, Canada";
+    getGeocode({ address: defaultAddress }).then(results => {
+        const { lat, lng } = getLatLng(results[0]);
+        setLocation({
+          label: defaultAddress,
+          value: {
+            description: defaultAddress,
+            lat,
+            lng,
+            city: 'Kingston',
+          },
+        });
+      });
+  }, [])
+
 
   const handleLocationChange = (selectedLocation: any) => {
-    if (selectedLocation && selectedLocation.value) {
+    if (selectedLocation && selectedLocation.value && selectedLocation.value.description) {
       getGeocode({ address: selectedLocation.value.description }).then(results => {
         const { lat, lng } = getLatLng(results[0]);
         const addressComponents = results[0].address_components;
@@ -42,9 +52,9 @@ export default function Home() {
         const city = cityComponent ? cityComponent.long_name : '';
 
         setLocation({
-          ...selectedLocation,
+          label: selectedLocation.value.description,
           value: {
-            ...selectedLocation.value,
+            description: selectedLocation.value.description,
             lat,
             lng,
             city,
@@ -56,11 +66,9 @@ export default function Home() {
     }
   };
 
-  const filteredRestaurants = useMemo(() => {
-    let restaurantsToFilter = mockRestaurants;
-
+  const restaurantsWithDistance = useMemo(() => {
     if (location?.value?.lat && location?.value?.lng) {
-      restaurantsToFilter = mockRestaurants.map(restaurant => {
+      return mockRestaurants.map(restaurant => {
         const distanceFromLocation = getDistance(
           { lat: location.value.lat, lng: location.value.lng },
           { lat: restaurant.latitude, lng: restaurant.longitude }
@@ -68,19 +76,22 @@ export default function Home() {
         return { ...restaurant, distance: distanceFromLocation };
       });
     }
+    return mockRestaurants.map(r => ({ ...r, distance: Infinity})); // Return restaurants with infinite distance if no location
+  }, [location]);
 
-    return restaurantsToFilter.filter(restaurant => {
+
+  const filteredRestaurants = useMemo(() => {
+    return restaurantsWithDistance.filter(restaurant => {
       const matchesType = searchType === 'restaurants' ? restaurant.type === 'restaurant' : restaurant.type === 'bar';
       const matchesPrice = price === 'any' || restaurant.price.length === parseInt(price, 10);
       const matchesRating = rating === 'any' || restaurant.rating >= parseInt(rating, 10);
       const matchesOpenNow = !openNow || restaurant.isOpen;
-      
-      // Only filter by distance if a location is actually set
-      const matchesDistance = (location?.value?.lat && location.value.lng) ? restaurant.distance <= distance : true;
+      const matchesDistance = restaurant.distance <= distance;
 
       return matchesType && matchesPrice && matchesRating && matchesOpenNow && matchesDistance;
     });
-  }, [searchType, price, rating, distance, openNow, location]);
+  }, [searchType, price, rating, distance, openNow, restaurantsWithDistance]);
+
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
