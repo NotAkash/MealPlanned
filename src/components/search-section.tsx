@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from 'react';
 import { Clock, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -39,6 +40,12 @@ export function SearchSection({
     openNow,
     onOpenNowChange
 }: SearchSectionProps) {
+    const [isClient, setIsClient] = useState(false)
+
+    useEffect(() => {
+        setIsClient(true)
+    }, [])
+
     return (
         <section className="py-12 border-b">
             <div className="container mx-auto px-4">
@@ -50,7 +57,7 @@ export function SearchSection({
                     <div className="flex flex-col sm:flex-row gap-4 mb-6">
                         <div className="relative flex-grow">
                              <div className="absolute left-3.5 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground z-10"><Search/></div>
-                             <GooglePlacesAutocomplete
+                             {isClient && <GooglePlacesAutocomplete
                                 apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
                                 selectProps={{
                                     value: location,
@@ -79,7 +86,7 @@ export function SearchSection({
                                         country: ['ca'],
                                     }
                                 }}
-                            />
+                            />}
                         </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-center">
