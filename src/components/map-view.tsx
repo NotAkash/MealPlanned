@@ -1,7 +1,9 @@
 'use client';
 
-import type { Restaurant } from '@/types';
+import { useState } from 'react';
+import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
+import { Restaurant } from '@/types';
 import { Badge } from './ui/badge';
 
 interface MapViewProps {
@@ -10,10 +12,19 @@ interface MapViewProps {
 }
 
 export function MapView({ restaurants, center }: MapViewProps) {
-  const mapCenter = center || {
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '',
+  });
+
+  const defaultCenter = {
     lat: 44.2312,
     lng: -76.4860,
   };
+
+  const mapCenter = center || defaultCenter;
+
+  const containerStyle = { width: '100%', height: '100%' };
 
   const mapUrl = `https://www.google.com/maps/embed/v1/view?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&center=${mapCenter.lat},${mapCenter.lng}&zoom=14`;
 
@@ -42,22 +53,23 @@ export function MapView({ restaurants, center }: MapViewProps) {
     )
   }
 
-  // This is a simplified map view. A real implementation would use a library like @react-google-maps/api
-  // to render interactive pins.
   return (
     <div className="container mx-auto px-4 py-12">
         <h3 className="text-2xl font-bold mb-8 font-headline">Map View</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="md:col-span-2 h-[600px] rounded-lg overflow-hidden border">
-                <iframe
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    loading="lazy"
-                    allowFullScreen
-                    src={mapUrl}
-                ></iframe>
-            </div>
+              {isLoaded && (
+                <GoogleMap
+                  mapContainerStyle={containerStyle}
+                  center={mapCenter}
+                  zoom={14}
+                >
+                  {restaurants.map((restaurant) => (
+                    <Marker key={restaurant.id} position={{ lat: restaurant.lat, lng: restaurant.lng }} title={restaurant.name} />
+ )})}
+                </GoogleMap>
+              )}
+              </div>
             <div className="h-[600px] overflow-y-auto pr-4">
                  <h4 className="text-xl font-bold mb-4">Nearby Locations</h4>
                  <div className="space-y-4">
