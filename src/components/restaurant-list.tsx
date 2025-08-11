@@ -10,9 +10,9 @@ export function RestaurantList({ restaurants }: RestaurantListProps) {
         <div className="container mx-auto px-4 py-12">
             <h3 className="text-2xl font-bold mb-8 font-headline">Restaurants Near You</h3>
             {restaurants.length > 0 ? (
-                <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                <div className="space-y-4">
                     {restaurants.map(restaurant => (
-                        <RestaurantCard key={restaurant.id} restaurant={restaurant} />
+                        <RestaurantCard key={restaurant.id} restaurant={restaurant} layout="row" />
                     ))}
                 </div>
             ) : (
