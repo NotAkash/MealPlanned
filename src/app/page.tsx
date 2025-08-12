@@ -6,7 +6,6 @@ import { Header } from '@/components/layout/header';
 import { SearchSection } from '@/components/search-section';
 import { RestaurantList } from '@/components/restaurant-list';
 import { MapView } from '@/components/map-view';
-import { mockRestaurants } from '@/data/restaurants';
 import type { Restaurant } from '@/types';
 import { Button } from '@/components/ui/button';
 import { Map, List } from 'lucide-react';
@@ -21,6 +20,7 @@ export default function Home() {
   const [view, setView] = useState<'list' | 'map'>('list');
   const [openNow, setOpenNow] = useState(false);
   const [location, setLocation] = useState<any | null>(null);
+  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
 
   useEffect(() => {
     // Set default location on initial render
@@ -73,18 +73,17 @@ export default function Home() {
 
   const restaurantsWithDistance = useMemo(() => {
     if (!location?.value?.lat || !location?.value?.lng) {
-      // Return all restaurants with a default large distance if no location is set
-      return mockRestaurants.map(restaurant => ({ ...restaurant, distance: 9999 }));
+      return restaurants.map(restaurant => ({ ...restaurant, distance: 9999 }));
     }
     
-    return mockRestaurants.map(restaurant => {
+    return restaurants.map(restaurant => {
       const distanceFromLocation = getDistance(
         { lat: location.value.lat, lng: location.value.lng },
         { lat: restaurant.latitude, lng: restaurant.longitude }
       );
       return { ...restaurant, distance: distanceFromLocation };
     });
-  }, [location]);
+  }, [location, restaurants]);
 
 
   const filteredRestaurants = useMemo(() => {
