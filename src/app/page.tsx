@@ -4,6 +4,7 @@
 import { useState, useEffect } from 'react';
 import { Header } from '@/components/layout/header';
 import { SearchSection } from '@/components/search-section';
+import { ResultsList } from '@/components/results-list';
 import { getGeocode, getLatLng } from 'use-places-autocomplete';
 
 export default function Home() {
@@ -36,6 +37,18 @@ export default function Home() {
         });
       });
   }, [])
+
+  useEffect(() => {
+    const searchParameters = {
+      location,
+      searchType,
+      price,
+      rating,
+      distance,
+      openNow,
+    };
+    console.log('Search parameters updated:', searchParameters);
+  }, [location, searchType, price, rating, distance, openNow]);
 
 
   const handleLocationChange = (selectedLocation: any) => {
@@ -80,6 +93,14 @@ export default function Home() {
           onDistanceChange={setDistance}
           openNow={openNow}
           onOpenNowChange={setOpenNow}
+        />
+        <ResultsList
+          location={location}
+          searchType={searchType}
+          price={price}
+          rating={rating}
+          distance={distance}
+          openNow={openNow}
         />
       </main>
       <footer className="py-6 bg-secondary/40 mt-auto border-t">
