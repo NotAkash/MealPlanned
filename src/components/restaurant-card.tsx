@@ -1,9 +1,9 @@
+
 "use client";
 
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
 import type { Restaurant } from '@/types';
-import { Star, Map, Sparkles, Loader2, ServerCrash, Heart, Share2 } from 'lucide-react';
+import { Star, Map, Sparkles, Loader2, ServerCrash, Heart, Share2, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -88,16 +88,7 @@ export function RestaurantCard({ restaurant, layout = 'grid' }: RestaurantCardPr
     return (
       <>
         <Card className="flex overflow-hidden h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1 rounded-xl border">
-          <div className="w-1/3 relative">
-            <Image
-              src={restaurant.image}
-              alt={restaurant.name}
-              fill
-              className="object-cover"
-              data-ai-hint="restaurant food"
-            />
-          </div>
-          <div className="w-2/3 flex flex-col">
+          <div className="w-full flex flex-col">
             <CardHeader className="p-4 flex-grow">
                <Badge variant="outline" className="mb-2 font-semibold w-fit">{restaurant.cuisine}</Badge>
               <CardTitle className="text-xl font-bold font-headline mb-2">{restaurant.name}</CardTitle>
@@ -105,7 +96,11 @@ export function RestaurantCard({ restaurant, layout = 'grid' }: RestaurantCardPr
                 {renderRating(restaurant.rating)}
                 <span className="font-bold text-lg text-foreground">{restaurant.price}</span>
               </div>
-              <p className="text-sm text-muted-foreground">~{restaurant.distance}km away</p>
+               <div className="flex items-center text-sm text-muted-foreground gap-2">
+                <MapPin className="h-4 w-4"/>
+                <p>{restaurant.address}</p>
+               </div>
+              <p className="text-sm text-muted-foreground mt-2">~{restaurant.distance}km away</p>
             </CardHeader>
             <CardFooter className="p-4 pt-0 grid grid-cols-2 gap-2">
               <Button variant="outline">
@@ -157,59 +152,58 @@ export function RestaurantCard({ restaurant, layout = 'grid' }: RestaurantCardPr
   return (
     <>
       <Card className="flex flex-col overflow-hidden h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1 rounded-xl border">
-        <CardHeader className="p-0 relative">
-          <div className="absolute top-3 right-3 z-10 flex gap-2">
-            <Popover>
-              <PopoverTrigger asChild>
+        <CardHeader className="p-4">
+          <div className="flex justify-between items-start">
+             <div>
+                <Badge variant="outline" className="mb-2 font-semibold">{restaurant.cuisine}</Badge>
+                <CardTitle className="text-xl font-bold font-headline mb-2">{restaurant.name}</CardTitle>
+             </div>
+             <div className="flex gap-2">
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="secondary"
+                      size="icon"
+                      className="rounded-full h-9 w-9 bg-white/80 backdrop-blur-sm hover:bg-white"
+                    >
+                        <Share2 className="h-5 w-5 text-muted-foreground" />
+                        <span className="sr-only">Share</span>
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto">
+                    <div className="flex gap-2">
+                        <Button variant="outline" size="sm" onClick={handleShare}>Copy Link</Button>
+                        <Button size="sm" asChild>
+                            <a href={`https://wa.me/?text=Check%20out%20this%20restaurant%3A%20${encodeURIComponent(restaurant.name)}%20${encodeURIComponent(shareUrl)}`} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                        </Button>
+                        <Button size="sm" asChild>
+                           <a href={`instagram://direct/new?text=${encodeURIComponent('Check out this restaurant: ' + restaurant.name + ' ' + shareUrl)}`} >DM</a>
+                        </Button>
+                    </div>
+                  </PopoverContent>
+                </Popover>
                 <Button
                   variant="secondary"
                   size="icon"
                   className="rounded-full h-9 w-9 bg-white/80 backdrop-blur-sm hover:bg-white"
+                  onClick={() => setIsFavorite(!isFavorite)}
                 >
-                    <Share2 className="h-5 w-5 text-muted-foreground" />
-                    <span className="sr-only">Share</span>
+                    <Heart className={cn("h-5 w-5 transition-all", isFavorite ? "fill-primary text-primary" : "text-muted-foreground")} />
+                    <span className="sr-only">Favorite</span>
                 </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto">
-                <div className="flex gap-2">
-                    <Button variant="outline" size="sm" onClick={handleShare}>Copy Link</Button>
-                    <Button size="sm" asChild>
-                        <a href={`https://wa.me/?text=Check%20out%20this%20restaurant%3A%20${encodeURIComponent(restaurant.name)}%20${encodeURIComponent(shareUrl)}`} target="_blank" rel="noopener noreferrer">WhatsApp</a>
-                    </Button>
-                    <Button size="sm" asChild>
-                       <a href={`instagram://direct/new?text=${encodeURIComponent('Check out this restaurant: ' + restaurant.name + ' ' + shareUrl)}`} >DM</a>
-                    </Button>
-                </div>
-              </PopoverContent>
-            </Popover>
-            <Button
-              variant="secondary"
-              size="icon"
-              className="rounded-full h-9 w-9 bg-white/80 backdrop-blur-sm hover:bg-white"
-              onClick={() => setIsFavorite(!isFavorite)}
-            >
-                <Heart className={cn("h-5 w-5 transition-all", isFavorite ? "fill-primary text-primary" : "text-muted-foreground")} />
-                <span className="sr-only">Favorite</span>
-            </Button>
-          </div>
-          <div className="aspect-[16/10] relative">
-            <Image
-              src={restaurant.image}
-              alt={restaurant.name}
-              fill
-              className="object-cover"
-              data-ai-hint="restaurant food"
-            />
+              </div>
           </div>
         </CardHeader>
-        <CardContent className="p-4 flex-grow">
-          <Badge variant="outline" className="mb-2 font-semibold">{restaurant.cuisine}</Badge>
-          <CardTitle className="text-xl font-bold font-headline mb-2">{restaurant.name}</CardTitle>
+        <CardContent className="p-4 pt-0 flex-grow">
           <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
             {renderRating(restaurant.rating)}
             <span className="font-bold text-lg text-foreground">{restaurant.price}</span>
           </div>
-          <p className="text-sm text-muted-foreground">~{restaurant.distance}km away</p>
+          <div className="flex items-center text-sm text-muted-foreground gap-2">
+            <MapPin className="h-4 w-4"/>
+            <p>{restaurant.address}</p>
+          </div>
+          <p className="text-sm text-muted-foreground mt-4">~{restaurant.distance}km away</p>
         </CardContent>
         <CardFooter className="p-4 pt-0 grid grid-cols-2 gap-2">
           <Button variant="outline">

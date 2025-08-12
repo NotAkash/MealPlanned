@@ -9,6 +9,7 @@ export interface Restaurant {
   cuisine: string;
   reviews: string[];
   type: 'restaurant' | 'bar';
+  address: string;
   latitude: number;
   longitude: number;
   city: string;
