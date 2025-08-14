@@ -52,7 +52,7 @@ export function SearchSection({
             <div className="container mx-auto px-4">
                 <div className="text-center mb-8">
                     <h2 className="text-3xl md:text-4xl font-bold text-foreground font-headline mb-2">Find your next favorite bite</h2>
-                    <p className="text-muted-foreground">Discover great restaurants and bars near you in Canada.</p>
+                    <p className="text-muted-foreground">Discover great restaurants and bars near you right now.</p>
                 </div>
                 <div className="max-w-4xl mx-auto bg-card p-6 rounded-xl shadow-md">
                     <div className="flex flex-col sm:flex-row gap-4 mb-6">
@@ -64,11 +64,11 @@ export function SearchSection({
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-center">
                         <RadioGroup value={searchType} onValueChange={onSearchTypeChange} className="flex items-center col-span-1 sm:col-span-1">
                             <div className="flex items-center space-x-2">
-                                <RadioGroupItem value="restaurants" id="r-restaurants" />
+                                <RadioGroupItem value="restaurant" id="r-restaurants" />
                                 <Label htmlFor="r-restaurants">Restaurants</Label>
                             </div>
                             <div className="flex items-center space-x-2">
-                                <RadioGroupItem value="bars" id="r-bars" />
+                                <RadioGroupItem value="bar" id="r-bars" />
                                 <Label htmlFor="r-bars">Bars</Label>
                             </div>
                         </RadioGroup>
@@ -106,7 +106,7 @@ export function SearchSection({
                         <Slider
                             value={[distance]}
                             onValueChange={(value) => onDistanceChange(value[0])}
-                            max={10}
+                            max={5}
                             step={1}
                             className="mt-2"
                         />

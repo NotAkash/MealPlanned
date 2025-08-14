@@ -8,12 +8,13 @@ import { ResultsList } from '@/components/results-list';
 import { getGeocode, getLatLng } from 'use-places-autocomplete';
 
 export default function Home() {
-  const [searchType, setSearchType] = useState('restaurants'); // 'restaurants' or 'bars'
+  const [searchType, setSearchType] = useState('restaurant'); // 'restaurant' or 'bar'
   const [price, setPrice] = useState('any');
   const [rating, setRating] = useState('any');
   const [distance, setDistance] = useState(5);
   const [openNow, setOpenNow] = useState(false);
   const [location, setLocation] = useState<any | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Set default location on initial render
@@ -35,20 +36,9 @@ export default function Home() {
             city,
           },
         });
+        setLoading(false)
       });
   }, [])
-
-  useEffect(() => {
-    const searchParameters = {
-      location,
-      searchType,
-      price,
-      rating,
-      distance,
-      openNow,
-    };
-    console.log('Search parameters updated:', searchParameters);
-  }, [location, searchType, price, rating, distance, openNow]);
 
 
   const handleLocationChange = (selectedLocation: any) => {
@@ -75,6 +65,17 @@ export default function Home() {
       setLocation(null);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="flex flex-col min-h-screen bg-background">
+        <Header />
+        <main className="flex-grow flex items-center justify-center">
+          <p>Loading...</p>
+        </main>
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
