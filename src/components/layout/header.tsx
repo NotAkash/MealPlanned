@@ -9,7 +9,7 @@ export function Header() {
           <div className="bg-primary text-primary-foreground p-2 rounded-lg">
             <UtensilsCrossed className="h-6 w-6" />
           </div>
-          <h1 className="text-2xl font-bold text-foreground font-headline">LocalBites</h1>
+          <h1 className="text-2xl font-bold text-foreground font-headline">MealPlanned</h1>
         </div>
         <Button variant="ghost" size="icon" className="h-10 w-10">
           <UserCircle className="h-7 w-7 text-muted-foreground" />

@@ -1,4 +1,4 @@
-# **App Name**: LocalBites
+# **App Name**: MealPlanned
 
 ## Core Features:
 

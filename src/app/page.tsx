@@ -106,7 +106,7 @@ export default function Home() {
       </main>
       <footer className="py-6 bg-secondary/40 mt-auto border-t">
         <div className="container mx-auto text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} LocalBites. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} MealPlanned. All rights reserved.</p>
         </div>
       </footer>
     </div>

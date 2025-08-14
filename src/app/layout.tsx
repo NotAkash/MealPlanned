@@ -4,7 +4,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
-  title: 'LocalBites',
+  title: 'MealPlanned',
   description: 'Find the best local restaurants near you.',
 };
 
